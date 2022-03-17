@@ -26,9 +26,8 @@ const Foods = ({ foods, createFood }) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        createFood: async(name) => {
-            const foods = (await axios.post('/api/foods', { name })).data
-            dispatch(createFood(foods))
+        createFood: (name) => {
+            dispatch(createFood(name))
         }
     }
 }

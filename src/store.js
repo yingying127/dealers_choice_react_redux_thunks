@@ -1,4 +1,6 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import axios from 'axios';
+import thunk from 'redux-thunk';
 
 const LOAD_EMPLOYEES = 'LOAD_EMPLOYEES';
 const LOAD_FOODS = 'LOAD_FOODS';
@@ -52,21 +54,35 @@ const reducer = combineReducers({
     view: viewReducer
 })
 //store with reducer from above
-const store = createStore(reducer)
+const store = createStore(reducer, applyMiddleware(thunk))
 
-const loadEmployees = (employees) => {
+const _loadEmployees = (employees) => {
     return {
         type: LOAD_EMPLOYEES,
         employees
     }
 };
 
-const loadFoods = (foods) => {
+const loadEmployees = () => {
+    return async(dispatch) => {
+        const employees = (await axios.get('/api/employees')).data;
+        dispatch(_loadEmployees(employees))
+    }
+}
+
+const _loadFoods = (foods) => {
     return {
         type: LOAD_FOODS,
         foods
     }
 };
+
+const loadFoods = () => {
+    return async(dispatch) => {
+        const foods = (await axios.get('/api/foods')).data;
+        dispatch(_loadFoods(foods))
+    }
+}
 
 
 const setView = (view) => {
@@ -76,12 +92,19 @@ const setView = (view) => {
     }
 };
 
-const createFood = (foods) => {
+const _createFood = (foods) => {
     return {
         type: CREATE_FOOD,
         foods
     }
 }
+
+const createFood = (name) => {
+    return async(dispatch) => {
+        const foods = (await axios.post('/api/foods', { name })).data
+        dispatch(_createFood(foods))
+    }
+} 
 
 export default store
 export { 

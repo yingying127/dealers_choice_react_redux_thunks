@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import axios from 'axios';
+// import axios from 'axios';
 import { connect, Provider } from 'react-redux';
 import store, { loadEmployees, loadFoods, setView } from './store'
 import Employees from './Employees'
@@ -58,10 +58,12 @@ const App = connect(
     (dispatch) => {
         return {
             load: async() => {
-                const employees = (await axios.get('/api/employees')).data
-                dispatch(loadEmployees(employees))
-                const foods = (await axios.get('/api/foods')).data
-                dispatch(loadFoods(foods))
+                // const employees = (await axios.get('/api/employees')).data
+                // dispatch(loadEmployees(employees))
+                dispatch(loadEmployees())
+                // const foods = (await axios.get('/api/foods')).data
+                // dispatch(loadFoods(foods))
+                dispatch(loadFoods())
             },
             setView: function(view) {
                 dispatch(setView(view))
