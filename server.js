@@ -1,7 +1,10 @@
 const { syncAndSeed, models: { Employee, Food } } = require('./db')
 const express = require('express');
-const app = express();
+const app = express()
+const { static } = express;
 const path = require('path');
+
+app.use(express.json())
 
 app.use('/dist', express.static(path.join(__dirname, 'dist')));
 app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
@@ -26,7 +29,7 @@ app.get('/api/foods', async(req, res, next) => {
 
 app.post('/api/foods', async(req, res, next) => {
     try {
-        res.send(await Food.createRandomFood())
+        res.status(201).send(await Food.create(req.body))
     }
     catch(ex) {
         next(ex)

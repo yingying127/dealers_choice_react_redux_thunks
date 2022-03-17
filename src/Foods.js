@@ -1,10 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { createFood } from './store'
+import axios from 'axios';
 
-const Foods = ({ foods }) => {
+const dishes = ["Lasagna", "Biscuits and Gravy", "Black Cod with Miso", "Black Label Burger", "Carnitas Burrito", "Chicken and Waffles", "Chili Dog", "Clam Chowder", "Classic Chili", "Cuban Sandwich", "Deep Dish Pizza"];
+
+const Foods = ({ foods, createFood }) => {
     return (
         <div>            
             <ul>
+            <button onClick={() => createFood(dishes[Math.floor(Math.random() * dishes.length)])}>Random Dish Generator</button>
                 {
                     foods.map(food => {
                         return (
@@ -15,16 +20,17 @@ const Foods = ({ foods }) => {
                     })
                 }
             </ul>
-            <button>Customers Around the World</button>
-
         </div>
     )
 }
 
-const mapStateToProps = ({ foods }) => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        foods
+        createFood: async(name) => {
+            const foods = (await axios.post('/api/foods', { name })).data
+            dispatch(createFood(foods))
+        }
     }
 }
 
-export default connect(mapStateToProps)(Foods)
+export default connect(state => state, mapDispatchToProps)(Foods)

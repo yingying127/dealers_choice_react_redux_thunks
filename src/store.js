@@ -3,6 +3,7 @@ import { createStore, combineReducers } from 'redux';
 const LOAD_EMPLOYEES = 'LOAD_EMPLOYEES';
 const LOAD_FOODS = 'LOAD_FOODS';
 const SET_VIEW = 'SET_VIEW'
+const CREATE_FOOD = 'CREATE_FOOD'
 
 // const store = createStore((state = { employees: [], foods: [], view: 'home' }, action) => {
 //     console.log(action)
@@ -29,6 +30,9 @@ const foodsReducer = (state = [], action) => {
     if (action.type === LOAD_FOODS) {
         state = action.foods
     }
+    if (action.type === CREATE_FOOD) {
+        state = [...state, action.foods]
+    }
     return state;
 }
 
@@ -38,6 +42,7 @@ const viewReducer = (state = 'home', action) => {
     }
     return state;
 }
+
 
 
 //reducer combined with middleware
@@ -71,9 +76,17 @@ const setView = (view) => {
     }
 };
 
+const createFood = (foods) => {
+    return {
+        type: CREATE_FOOD,
+        foods
+    }
+}
+
 export default store
 export { 
     loadEmployees, 
     loadFoods,
-    setView
+    setView,
+    createFood
 }
