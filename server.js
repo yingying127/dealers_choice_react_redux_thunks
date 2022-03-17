@@ -36,6 +36,17 @@ app.post('/api/foods', async(req, res, next) => {
     }
 })
 
+app.delete('/api/foods/:id', async(req, res, next) => {
+    try {
+        const foods = await Food.findByPk(req.params.id)
+        await foods.destroy();
+        res.sendStatus(204)
+    }
+    catch(ex) {
+        next(ex)
+    }
+})
+
 const init = async() => {
     try {
         await syncAndSeed()

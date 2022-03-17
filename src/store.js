@@ -5,8 +5,9 @@ import logger from 'redux-logger';
 
 const LOAD_EMPLOYEES = 'LOAD_EMPLOYEES';
 const LOAD_FOODS = 'LOAD_FOODS';
-const SET_VIEW = 'SET_VIEW'
-const CREATE_FOOD = 'CREATE_FOOD'
+const SET_VIEW = 'SET_VIEW';
+const CREATE_FOOD = 'CREATE_FOOD';
+const DESTROY_FOOD = 'DESTROY_FOOD';
 
 // const store = createStore((state = { employees: [], foods: [], view: 'home' }, action) => {
 //     console.log(action)
@@ -35,6 +36,10 @@ const foodsReducer = (state = [], action) => {
     }
     if (action.type === CREATE_FOOD) {
         state = [...state, action.foods]
+    }
+    if (action.type === DESTROY_FOOD) {
+        const foods = state.filter((food) => food.id !== action.food.id);
+        return foods;
     }
     return state;
 }
@@ -83,7 +88,6 @@ const loadFoods = () => {
     }
 }
 
-
 const setView = (view) => {
     return {
         type: SET_VIEW,
@@ -105,10 +109,25 @@ const createFood = (name) => {
     }
 } 
 
+const _destroyFood = (food) => {
+    return {
+        type: DESTROY_FOOD,
+        food
+    }
+}
+
+const destroyFood = (food) => {
+    return async(dispatch) => {
+        await axios.delete(`/api/foods/${food.id}`)
+        dispatch(_destroyFood(food)) 
+    }
+}
+
 export default store
 export { 
     loadEmployees, 
     loadFoods,
     setView,
-    createFood
+    createFood,
+    destroyFood
 }
