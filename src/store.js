@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import axios from 'axios';
 import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 
 const LOAD_EMPLOYEES = 'LOAD_EMPLOYEES';
 const LOAD_FOODS = 'LOAD_FOODS';
@@ -54,7 +55,7 @@ const reducer = combineReducers({
     view: viewReducer
 })
 //store with reducer from above
-const store = createStore(reducer, applyMiddleware(thunk))
+const store = createStore(reducer, applyMiddleware(thunk, logger))
 
 const _loadEmployees = (employees) => {
     return {
