@@ -8,7 +8,7 @@ const Employees = ({ employees }) => {
                 employees.map(employee => {
                     return (
                         <li key={employee.id}>
-                            { employee.name } { employee.profession }
+                            { employee.name }: { employee.profession }
                         </li>
                     )
                 })
