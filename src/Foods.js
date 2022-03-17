@@ -16,7 +16,7 @@ const Foods = ({ foods, createFood, destroyFood }) => {
                         return (
                             <li key={food.id}>
                                 { food.name }
-                                <button id='deleteButton'onClick={() => destroyFood(food)}>x</button>
+                                <button id='deleteButton'onClick={() => destroyFood(food)}>X</button>
                             </li>
                         )
                     })
