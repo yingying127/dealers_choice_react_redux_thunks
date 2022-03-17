@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import axios from 'axios';
 import { connect, Provider } from 'react-redux';
-import store, { loadEmployees, loadFoods } from './store'
+import store, { loadEmployees, loadFoods, createFoods } from './store'
+import Employees from './Employees'
+import Foods from './Foods'
+import Nav from './Nav'
 
 class _App extends Component {
     constructor() {
@@ -24,33 +27,9 @@ class _App extends Component {
         const { employees, foods } = this.props
         return (            
         <div>
-            <nav>
-                <a href='#'>Home</a>
-                <a href='#employees'>Employees ({employees.length})</a>
-                <a href='#food'>Our Favorite Dishes ({foods.length})</a>
-            </nav>
-                <ul>
-                    {
-                        employees.map(employee => {
-                            return (
-                                <li key={employee.id}>
-                                    { employee.name } { employee.profession }
-                                </li>
-                            )
-                        })
-                    }
-                    </ul>
-                    <ul>
-                    {
-                        foods.map(food => {
-                            return (
-                                <li key={food.id}>
-                                    { food.name }
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
+            <Nav />
+                <Employees />
+                <Foods />
             </div>
         )
     }
@@ -65,6 +44,8 @@ const App = connect(
                 dispatch(loadEmployees(employees))
                 const foods = (await axios.get('/api/foods')).data
                 dispatch(loadFoods(foods))
+                const createFood = (await axios.post('/api/foods')).data
+                dispatch(createFood(foods))
             }
         }
     }

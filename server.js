@@ -24,6 +24,15 @@ app.get('/api/foods', async(req, res, next) => {
     }
 })
 
+app.post('/api/foods', async(req, res, next) => {
+    try {
+        res.send(await Food.createRandomFood())
+    }
+    catch(ex) {
+        next(ex)
+    }
+})
+
 const init = async() => {
     try {
         await syncAndSeed()

@@ -3,17 +3,21 @@ import { connect } from 'react-redux';
 
 const Foods = ({ foods }) => {
     return (
-        <ul>
-            {
-                foods.map(food => {
-                    return (
-                        <li key={food.id}>
-                            { food.name }
-                        </li>
-                    )
-                })
-            }
-        </ul>
+        <div>            
+            <ul>
+                {
+                    foods.map(food => {
+                        return (
+                            <li key={food.id}>
+                                { food.name }
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+            <button>Customers Around the World</button>
+
+        </div>
     )
 }
 
