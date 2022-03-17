@@ -9,20 +9,6 @@ const SET_VIEW = 'SET_VIEW';
 const CREATE_FOOD = 'CREATE_FOOD';
 const DESTROY_FOOD = 'DESTROY_FOOD';
 
-// const store = createStore((state = { employees: [], foods: [], view: 'home' }, action) => {
-//     console.log(action)
-//     if (action.type === LOAD_EMPLOYEES) {
-//         state = {...state, employees: action.employees}
-//     } 
-//     if (action.type === LOAD_FOODS) {
-//         state = {...state, foods: action.foods}
-//     }
-//     if (action.type === SET_VIEW) {
-//         state = {...state, view: action.view}
-//     }
-//     return state;
-// })
-
 const employeesReducer = (state = [], action) => {
     if (action.type === LOAD_EMPLOYEES) {
         state = action.employees
@@ -51,13 +37,11 @@ const viewReducer = (state = 'home', action) => {
     return state;
 }
 
-//reducer combined with middleware
 const reducer = combineReducers({
     employees: employeesReducer,
     foods: foodsReducer,
     view: viewReducer
 })
-//store with reducer from above
 const store = createStore(reducer, applyMiddleware(thunk, logger))
 
 const _loadEmployees = (employees) => {
