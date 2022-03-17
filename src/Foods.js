@@ -7,9 +7,10 @@ const dishes = ["Lasagna", "Biscuits and Gravy", "Black Cod with Miso", "Black L
 
 const Foods = ({ foods, createFood }) => {
     return (
-        <div>            
-            <ul>
+        <div>
             <button onClick={() => createFood(dishes[Math.floor(Math.random() * dishes.length)])}>Random Dish Generator</button>
+            <ul>
+
                 {
                     foods.map(food => {
                         return (

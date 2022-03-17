@@ -6,6 +6,7 @@ import store, { loadEmployees, loadFoods, setView } from './store'
 import Employees from './Employees'
 import Foods from './Foods'
 import Nav from './Nav'
+import Home from './Home'
 
 // class _App extends Component {
 //     constructor() {
@@ -82,8 +83,8 @@ const App = connect(
         const { employees, foods, view } = this.props;
         return (
             <div>
-                { view }
                 <Nav />
+                { view === '' && <Home />}
                 { view === 'employees' && <Employees />}
                 { view === 'foods' && <Foods />}
              </div>

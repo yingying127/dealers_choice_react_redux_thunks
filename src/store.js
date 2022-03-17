@@ -46,8 +46,6 @@ const viewReducer = (state = 'home', action) => {
     return state;
 }
 
-
-
 //reducer combined with middleware
 const reducer = combineReducers({
     employees: employeesReducer,

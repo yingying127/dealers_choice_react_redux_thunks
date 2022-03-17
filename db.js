@@ -15,13 +15,6 @@ const Food = sequelize.define('food', {
     name: Sequelize.STRING
 })
 
-Food.createRandomFood = function() {
-    const name = faker.name.firstName()
-    const lastName = faker.name.lastName()
-    const country = faker.address.country()
-    return this.create({ name: `${name} ${lastName} is from ${country}.` })
-}
-
 const syncAndSeed = async() => {
     await sequelize.sync({ force: true })
 

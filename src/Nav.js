@@ -5,8 +5,8 @@ const Nav = ({ employees, foods }) => {
     return (
         <nav>
             <a href='#'>Home</a>
-            <a href='#employees'>Employees ({employees.length})</a>
-            <a href='#foods'>Our Favorite Dishes ({foods.length})</a>
+            <a href='#employees'>Employees</a>
+            <a href='#foods'>Our Favorite Dishes</a>
         </nav>
     )
 }
