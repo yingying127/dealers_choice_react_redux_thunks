@@ -11,4 +11,4 @@ const Nav = ({ employees, foods }) => {
     )
 }
 
-export default connect((state) => state)(Nav)
+export default connect(state => state)(Nav)
